@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b0f19;
+    color: white;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.screen:not(.hidden) {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.logo {
+    width: 120px;
+    margin: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 12px 30px;
+    background: #1e90ff;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.back {
+    margin-top: 20px;
+    background: gray;
+}
+
+textarea {
+    width: 250px;
+    height: 80px;
+}
+
+/* 🔴 SAVAGE WARNING PAGE */
+
+.warning {
+    background: radial-gradient(circle, #1a0000, #000000);
+}
+
+.warning-text {
+    font-size: 28px;
+    color: #ff2e2e;
+    font-weight: bold;
+    text-shadow: 0 0 10px red, 0 0 20px red;
+    margin-top: 20px;
+    animation: shake 0.4s infinite;
+}
+
+.warning-img {
+    width: 150px;
+    animation: pulse 1s infinite;
+}
+
+/* Shake */
+@keyframes shake {
+    0% { transform: translate(0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+    100% { transform: translate(2px, 2px); }
+}
+
+/* Pulse */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}

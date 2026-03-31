@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stark Industries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ALL SCREENS -->
+
+<div id="app">
+
+<!-- SCREEN 1 -->
+<div class="screen" id="screen1">
+    <h2>Welcome to Stark Industries</h2>
+    <p>We Are Hiring Engineers</p>
+    <img src="logo.png" class="logo">
+
+    <h1>Are you an Engineer?</h1>
+    <div class="buttons">
+        <button onclick="goTo(2)">Yes</button>
+        <button onclick="goTo(2)">No</button>
+    </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen hidden" id="screen2">
+    <h1>Are you a student?</h1>
+    <div class="buttons">
+        <button onclick="goTo(3)">Yes</button>
+        <button onclick="goTo('pro')">No</button>
+    </div>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen hidden" id="screen3">
+    <h1>Do You Have Skills?</h1>
+    <div class="buttons">
+        <button onclick="goTo(4)">Yes</button>
+        <button onclick="goTo('noskill')">No</button>
+    </div>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen hidden" id="screen4">
+    <h1>Are You Confident with Your Skills?</h1>
+    <div class="buttons">
+        <button onclick="goTo(5)">Yes</button>
+        <button onclick="goTo('noconf')">No</button>
+    </div>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="screen hidden" id="screen5">
+    <h1>Why Do You Want to Work With Stark Industry</h1>
+    <textarea id="input1"></textarea>
+    <br>
+    <button onclick="validateInput('input1', 6)">Next</button>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 6 -->
+<div class="screen hidden" id="screen6">
+    <h1>Are You Confident You'll Get A Job With Your Skills?</h1>
+    <div class="buttons">
+        <button onclick="goTo(7)">Yes</button>
+        <button onclick="goTo('noskill2')">No</button>
+    </div>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 7 -->
+<div class="screen hidden" id="screen7">
+    <h1>Mention Your Achievements & Skills</h1>
+    <textarea id="input2"></textarea>
+    <br>
+   <button onclick="validateInput('input2', 8)">Next</button>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 8 -->
+<div class="screen hidden" id="screen8">
+    <h1>Ohh! My Jarvis AI Can Do All This in Seconds.</h1>
+    <p>Tell Me Something Special About You Which Makes You ODD-ONE-OUT</p>
+    <textarea></textarea>
+    <br>
+    <button onclick="processing(9)">Next</button>
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<!-- SCREEN 9 -->
+<div class="screen hidden" id="screen9">
+    <img src="opps.jpg" class="logo">
+    <h1>Opps! You're Not Special</h1>
+    <button onclick="goTo(10)">Next</button>
+</div>
+
+<!-- SCREEN 10 -->
+<div class="screen hidden" id="screen10">
+    <img src="angry.jpg" class="logo">
+    <h1>Why Did You Click Next?</h1>
+    <button onclick="goTo(11)">Go Back</button>
+</div>
+
+<!-- SCREEN 11 -->
+<div class="screen hidden" id="screen11">
+    <h2>Welcome To STARK INDUSTRIES</h2>
+    <img src="logo.png" class="logo">
+    <h1>Congratulations You Got A Job</h1>
+    <p>Your Package is 👉 <a href="https://www.instagram.com/reel/DWjvwdnEnOQ/?igsh=NTdtNzNyMDk0dTQ3" target="_blank">Click Here</a></p>
+</div>
+
+<!-- SPECIAL SCREENS -->
+<div class="screen hidden warning" id="screenpro">
+    <img src="warning.jpg" class="warning-img">
+
+    <h2 class="warning-text">
+        This is for Students Not for Professionals 😡<br>
+        GET LOST!
+    </h2>
+
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<div class="screen hidden warning" id="screennoskill">
+    <img src="warning.jpg" class="warning-img">
+
+    <h2 class="warning-text">
+        How Dare You to Apply for A Job in Stark Industry without skills 😡
+    </h2>
+
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<div class="screen hidden warning" id="screennoconf">
+    <img src="warning.jpg" class="warning-img">
+
+    <h2 class="warning-text">
+        Get Lost! If you Don't Have Confidence 😡
+    </h2>
+
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+
+<div class="screen hidden warning" id="screennoskill2">
+    <img src="warning.jpg" class="warning-img">
+
+    <h2 class="warning-text">
+        Then Why Did You Come Here Without Skills? 😡<br>
+        GO LEARN SKILLS!
+    </h2>
+
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+<div class="screen hidden warning" id="screeninvalid">
+    <img src="warning.jpg" class="warning-img">
+
+    <h2 class="warning-text">
+        Can't You Type a Valid Thing 😡
+    </h2>
+
+    <button class="back" onclick="back()">⬅ Back</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
