@@ -1,88 +1,269 @@
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #0b0f19;
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0b0f19;
+    color:white;
+    text-align:center;
+}
+
+/* SCREEN FIX */
+.screen{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    position:relative; /* IMPORTANT for back button */
+}
+
+.active{
+    display:flex;
+}
+
+/* LOGO */
+.logo{
+    width:120px;
+    margin:20px;
+}
+
+/* BUTTON GROUP */
+.buttons{
+    display:flex;
+    gap:20px;
+    margin-top:10px;
+}
+
+/* ✅ PILL BUTTON */
+button{
+    padding:10px 22px;
+    background:#1e90ff;
+    border:none;
+    color:white;
+    border-radius:50px; /* pill */
+    cursor:pointer;
+}
+/* === BUTTON HOVER UPGRADE === */
+button:hover{
+    box-shadow:0 0 12px #1e90ff, 0 0 25px #1e90ff;
+    transform:scale(1.05);
+}
+
+/* smooth animation */
+button{
+    transition:all 0.3s ease;
+}
+
+/* BACK BUTTON TOP LEFT */
+.backBtn{
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    padding:0;
+    font-size:18px;
+}
+
+/* TEXTAREA */
+textarea{
+    width:80%;
+    height:80px;
+    padding:10px;
+    margin-bottom:15px;
+    font-size:16px;
+    line-height:1.5;
+}
+
+/* ✅ FULL SCREEN SHAKE */
+.warning{
+    background:radial-gradient(circle,#1a0000,black);
+    animation:shakeScreen 0.3s infinite;
+}
+
+@keyframes shakeScreen{
+    0%{transform:translate(0)}
+    25%{transform:translate(4px,-4px)}
+    50%{transform:translate(-4px,4px)}
+    75%{transform:translate(4px,4px)}
+    100%{transform:translate(-4px,-4px)}
+}
+
+/* FINAL */
+.final{
+    background: transparent;
     color: white;
+}
+
+@media(max-width:600px){
+    .buttons{
+        flex-direction:column;
+    }
+}
+.center-img {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    max-width: 80%;
+}
+/* ===== WALLPAPER BACKGROUND ===== */
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: url("Wallpaper.jpg") no-repeat center center;
+    background-size: cover;
+
+    filter: blur(12px);
+    transform: scale(1.1); /* prevents blur edges showing */
+
+    z-index: -0;
+}
+#screen10 {
+    position: relative;
+    overflow: hidden;
+}
+
+#screen10 > *:not(.bg-image) {
+    position: relative;
+    z-index: 1;
+}
+@media (max-width: 768px) {
+    .bg-image {
+        background-position: center top;
+    }
+}
+/* ===== FIX BACK BUTTON POSITION (SCREEN 10) ===== */
+#screen10 .backBtn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2; /* above everything */
+}
+/* ===== FINAL SCREEN LAYOUT ===== */
+.final-container {
+    position: relative;
+    z-index: 1;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-top: 100px; /* pushes content up */
+    gap: 25px;
     text-align: center;
 }
-
-.screen {
-    display: none;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.top-text {
+    margin: 0;
+    color: rgb(13, 190, 72);
+    letter-spacing: 1px;
 }
 
-.screen:not(.hidden) {
-    display: flex;
+/* ===== IMPROVED TOP TEXT ===== */
+.top-text.small {
+    position: relative;
+    padding: 6px 14px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 230, 255, 0.5);
+border-radius: 20px;
+padding: 6px 16px;
+box-shadow: 0 0 10px rgba(0, 230, 255, 0.3);
+background: rgba(0, 0, 0, 0.5);
 }
 
-.hidden {
-    display: none;
+.top-text.small::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 110%;
+    height: 100%;
+
+    background: rgba(0, 230, 255, 0.08);
+    border-radius: 20px;
+
+    z-index: -1;
 }
 
-.logo {
+.top-text.big {
+    font-size: 32px;
+    font-weight: 700;
+    color: #00e6ff;
+
+    text-shadow:
+        0 0 5px rgba(0,230,255,0.6),
+        0 0 15px rgba(0,230,255,0.4);
+}
+.final-logo {
     width: 120px;
-    margin: 20px;
+    margin: 20px 0;
 }
 
-.buttons {
-    display: flex;
-    gap: 20px;
-}
 
-button {
-    padding: 12px 30px;
-    background: #1e90ff;
-    border: none;
+
+.highlight:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+/* ===== DARK OVERLAY ===== */
+
+
+
+.cta-text {
+    font-size: 18px;
     color: white;
-    border-radius: 8px;
-    cursor: pointer;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
 }
-
-.back {
-    margin-top: 20px;
-    background: gray;
-}
-
-textarea {
-    width: 250px;
-    height: 80px;
-}
-
-/* 🔴 SAVAGE WARNING PAGE */
-
-.warning {
-    background: radial-gradient(circle, #1a0000, #000000);
-}
-
-.warning-text {
-    font-size: 28px;
-    color: #ff2e2e;
+/* ===== CTA BUTTON ===== */
+.cta-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #00e6ff;
+    color: black;
     font-weight: bold;
-    text-shadow: 0 0 10px red, 0 0 20px red;
-    margin-top: 20px;
-    animation: shake 0.4s infinite;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+
+    box-shadow: 0 0 10px #00e6ff, 0 0 30px #00e6ff;
 }
 
-.warning-img {
-    width: 150px;
-    animation: pulse 1s infinite;
+/* hover */
+.cta-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+/* ===== PULSE EFFECT ===== */
+.cta-btn {
+    animation: pulseGlow 1.5s infinite;
 }
 
-/* Shake */
-@keyframes shake {
-    0% { transform: translate(0); }
-    25% { transform: translate(-2px, 2px); }
-    50% { transform: translate(2px, -2px); }
-    75% { transform: translate(-2px, -2px); }
-    100% { transform: translate(2px, 2px); }
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 10px #00e6ff, 0 0 30px #00e6ff;
+    }
+    50% {
+        box-shadow: 0 0 20px #00e6ff, 0 0 60px #00e6ff;
+    }
+    100% {
+        box-shadow: 0 0 10px #00e6ff, 0 0 30px #00e6ff;
+    }
 }
 
-/* Pulse */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+
+
+.cta-text {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+.cta-box {
+    margin-top: 15px;
 }
