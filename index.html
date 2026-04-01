@@ -2,170 +2,166 @@
 <html>
 <head>
     <title>Stark Industries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
+
+<audio id="popSound" src="pop.mp3"></audio>
+<audio id="rocketSound" src="rocket.mp3"></audio>
+
 <body>
 
-<!-- ALL SCREENS -->
-
-<div id="app">
-
 <!-- SCREEN 1 -->
-<div class="screen" id="screen1">
+<div class="screen active" id="screen1">
     <h2>Welcome to Stark Industries</h2>
-    <p>We Are Hiring Engineers</p>
     <img src="logo.png" class="logo">
-
     <h1>Are you an Engineer?</h1>
+
     <div class="buttons">
         <button onclick="goTo(2)">Yes</button>
-        <button onclick="goTo(2)">No</button>
+        <button onclick="goTo('noskill')">No</button>
     </div>
 </div>
 
 <!-- SCREEN 2 -->
-<div class="screen hidden" id="screen2">
-    <h1>Are you a student?</h1>
+<div class="screen" id="screen2">
+    <button class="backBtn" onclick="back()">←</button>
+
+    <h1 id="text2"></h1>
+
     <div class="buttons">
         <button onclick="goTo(3)">Yes</button>
         <button onclick="goTo('pro')">No</button>
     </div>
-    <button class="back" onclick="back()">⬅ Back</button>
 </div>
 
 <!-- SCREEN 3 -->
-<div class="screen hidden" id="screen3">
-    <h1>Do You Have Skills?</h1>
+<div class="screen" id="screen3">
+    <button class="backBtn" onclick="back()">←</button>
+
+    <h1 id="text3"></h1> 
+
     <div class="buttons">
         <button onclick="goTo(4)">Yes</button>
         <button onclick="goTo('noskill')">No</button>
     </div>
-    <button class="back" onclick="back()">⬅ Back</button>
 </div>
 
 <!-- SCREEN 4 -->
-<div class="screen hidden" id="screen4">
-    <h1>Are You Confident with Your Skills?</h1>
+<div class="screen" id="screen4">
+    <button class="backBtn" onclick="back()">←</button>
+
+    <h1 id="text4"></h1> 
+
     <div class="buttons">
         <button onclick="goTo(5)">Yes</button>
         <button onclick="goTo('noconf')">No</button>
     </div>
-    <button class="back" onclick="back()">⬅ Back</button>
 </div>
 
 <!-- SCREEN 5 -->
-<div class="screen hidden" id="screen5">
-    <h1>Why Do You Want to Work With Stark Industry</h1>
-    <textarea id="input1"></textarea>
-    <br>
-    <button onclick="validateInput('input1', 6)">Next</button>
-    <button class="back" onclick="back()">⬅ Back</button>
+<div class="screen" id="screen5">
+    <button class="backBtn" onclick="back()">←</button>
+
+    <h1 id="text5"></h1> 
+
+    <textarea id="input1"></textarea><br>
+
+    <button onclick="validateInput('input1',6)">Next</button>
 </div>
 
 <!-- SCREEN 6 -->
-<div class="screen hidden" id="screen6">
-    <h1>Are You Confident You'll Get A Job With Your Skills?</h1>
-    <div class="buttons">
-        <button onclick="goTo(7)">Yes</button>
-        <button onclick="goTo('noskill2')">No</button>
-    </div>
-    <button class="back" onclick="back()">⬅ Back</button>
+<div class="screen" id="screen6">
+    <button class="backBtn" onclick="back()">←</button>
+
+    <h1 id="text6"></h1> 
+
+    <textarea id="input2"></textarea><br>
+
+    <button onclick="validateInput('input2',7)">Next</button>
 </div>
 
-<!-- SCREEN 7 -->
-<div class="screen hidden" id="screen7">
-    <h1>Mention Your Achievements & Skills</h1>
-    <textarea id="input2"></textarea>
-    <br>
-   <button onclick="validateInput('input2', 8)">Next</button>
-    <button class="back" onclick="back()">⬅ Back</button>
+<!-- PROCESS  Screen 7-->
+<div class="screen" id="screen7">
+    <button class="backBtn" onclick="back()">←</button>
+    <h1>Processing...</h1>
 </div>
 
 <!-- SCREEN 8 -->
-<div class="screen hidden" id="screen8">
-    <h1>Ohh! My Jarvis AI Can Do All This in Seconds.</h1>
-    <p>Tell Me Something Special About You Which Makes You ODD-ONE-OUT</p>
-    <textarea></textarea>
-    <br>
-    <button onclick="processing(9)">Next</button>
-    <button class="back" onclick="back()">⬅ Back</button>
+<div id="screen8" class="screen">
+    <button class="backBtn" onclick="back()">←</button>
+    
+    <img src="opps.jpg" class="center-img">
+
+    <h1 id="text8"></h1> 
+
+    <button onclick="goTo(9)">Next</button>
+
 </div>
 
 <!-- SCREEN 9 -->
-<div class="screen hidden" id="screen9">
-    <img src="opps.jpg" class="logo">
-    <h1>Opps! You're Not Special</h1>
-    <button onclick="goTo(10)">Next</button>
+<div id="screen9" class="screen">
+
+<button class="backBtn" onclick="back()">←</button>
+
+    <img src="angry.jpg" class="center-img">
+
+   <h1 id="text9"></h1> 
+
+   <button onclick="goTo(10)">Go Back</button>
+
 </div>
 
-<!-- SCREEN 10 -->
-<div class="screen hidden" id="screen10">
-    <img src="angry.jpg" class="logo">
-    <h1>Why Did You Click Next?</h1>
-    <button onclick="goTo(11)">Go Back</button>
-</div>
+<!-- FINAL -->
+<div class="screen final" id="screen10">
 
-<!-- SCREEN 11 -->
-<div class="screen hidden" id="screen11">
-    <h2>Welcome To STARK INDUSTRIES</h2>
-    <img src="logo.png" class="logo">
-    <h1>Congratulations You Got A Job</h1>
-    <p>Your Package is 👉 <a href="https://www.instagram.com/reel/DWjvwdnEnOQ/?igsh=NTdtNzNyMDk0dTQ3" target="_blank">Click Here</a></p>
-</div>
+    <button class="backBtn" onclick="goTo(9)">←</button>
 
-<!-- SPECIAL SCREENS -->
-<div class="screen hidden warning" id="screenpro">
-    <img src="warning.jpg" class="warning-img">
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
 
-    <h2 class="warning-text">
-        This is for Students Not for Professionals 😡<br>
-        GET LOST!
-    </h2>
+<div class="final-container">
 
-    <button class="back" onclick="back()">⬅ Back</button>
-</div>
+    <p class="top-text small">You are selected for Stark Industry</p>
+    <p class="top-text big">Welcome to Stark Industry</p>
 
-<div class="screen hidden warning" id="screennoskill">
-    <img src="warning.jpg" class="warning-img">
+    <img src="logo.png" class="final-logo">
 
-    <h2 class="warning-text">
-        How Dare You to Apply for A Job in Stark Industry without skills 😡
-    </h2>
+    <div class="cta-box">
+        <p class="cta-text">Your Package Is</p>
+        <a href="https://youtube.com" target="_blank" class="cta-btn">Click Here</a>
+    </div>
 
-    <button class="back" onclick="back()">⬅ Back</button>
-</div>
-
-<div class="screen hidden warning" id="screennoconf">
-    <img src="warning.jpg" class="warning-img">
-
-    <h2 class="warning-text">
-        Get Lost! If you Don't Have Confidence 😡
-    </h2>
-
-    <button class="back" onclick="back()">⬅ Back</button>
-</div>
-
-<div class="screen hidden warning" id="screennoskill2">
-    <img src="warning.jpg" class="warning-img">
-
-    <h2 class="warning-text">
-        Then Why Did You Come Here Without Skills? 😡<br>
-        GO LEARN SKILLS!
-    </h2>
-
-    <button class="back" onclick="back()">⬅ Back</button>
-</div>
-<div class="screen hidden warning" id="screeninvalid">
-    <img src="warning.jpg" class="warning-img">
-
-    <h2 class="warning-text">
-        Can't You Type a Valid Thing 😡
-    </h2>
-
-    <button class="back" onclick="back()">⬅ Back</button>
 </div>
 </div>
 
+<!-- WARNINGS -->
+<div class="screen warning" id="screenpro">
+    <button class="backBtn" onclick="back()">←</button>
+    <img src="warning.jpg" class="logo">
+    <h2>This Is For Unemployed. Not For Employed. Get Lost! 😡</h2>
+</div>
+
+<div class="screen warning" id="screennoskill">
+    <button class="backBtn" onclick="back()">←</button>
+    <img src="warning.jpg" class="logo">
+    <h2>Get Lost! 😡</h2>
+</div>
+
+<div class="screen warning" id="screennoconf">
+    <button class="backBtn" onclick="back()">←</button>
+    <img src="warning.jpg" class="logo">
+    <h2>How Dare You To Apply For A Job. In STARK INDUSTRY!😡</h2>
+</div>
+
+<div class="screen warning" id="screeninvalid">
+    <button class="backBtn" onclick="back()">←</button>
+    <img src="warning.jpg" class="logo">
+    <h2>Can't You Type A VAlid Thing!😡</h2>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
