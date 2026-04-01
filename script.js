@@ -8,6 +8,7 @@ const screenTexts = {
     8: "Congratulations! You're not special",
     9: "How Dare You To Click Next!"
 };
+let audioUnlocked = false;
 let hasCelebrated = false;
 let typingInterval = null;
 let isTyping = false;
@@ -237,4 +238,24 @@ function triggerFinalCelebration() {
             pop.play().catch(()=>{});
         }
     }, 600);
+}
+function unlockAudio() {
+    if (audioUnlocked) return;
+
+    const silent = new Audio();
+    silent.play().catch(() => {});
+
+    warningAudio.play().then(() => {
+        warningAudio.pause();
+        warningAudio.currentTime = 0;
+    }).catch(() => {});
+
+    typingAudio.play().then(() => {
+        typingAudio.pause();
+        typingAudio.currentTime = 0;
+    }).catch(() => {});
+
+    audioUnlocked = true;
+
+    console.log("Audio Unlocked");
 }
