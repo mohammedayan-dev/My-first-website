@@ -259,3 +259,6 @@ function unlockAudio() {
 
     console.log("Audio Unlocked");
 }
+document.addEventListener("click", unlockAudio, { once: true });
+
+
