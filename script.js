@@ -1,48 +1,240 @@
+
+const screenTexts = {
+    2: "Are You A Student ?",
+    3: "Do You Have Skills ?",
+    4: "Are You Confident With Your Skills ?",
+    5: "Why should STARK INDUSTRY Hire You ?",
+    6: "Tell Us Something About Yourself Which Makes You Special",
+    8: "Congratulations! You're not special",
+    9: "How Dare You To Click Next!"
+};
+let hasCelebrated = false;
+let typingInterval = null;
+let isTyping = false;
+let processTimer = null;
 let historyStack = ["screen1"];
 
-function goTo(screen) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+let warningAudio = new Audio("warning.mp3");
+let typingAudio = new Audio("typing.mp3");
+typingAudio.loop = true;
 
+/* NAVIGATION */
+function goTo(screen){
+
+    // stop warning sound
+    warningAudio.pause();
+    warningAudio.currentTime = 0;
+
+    // stop processing timer
+    if (processTimer) {
+        clearTimeout(processTimer);
+        processTimer = null;
+    }
+
+    // stop typing
+    if (typingInterval) {
+        clearTimeout(typingInterval);
+        isTyping = false;
+        typingAudio.pause();
+    }
+
+    // processing screen
+    if(screen == 7){
+        startProcessing();
+    }
+
+    // switch screen
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     let id = "screen" + screen;
-    document.getElementById(id).classList.remove("hidden");
+    document.getElementById(id).classList.add("active");
 
-    historyStack.push(id);
+    // FINAL screen trigger (FIXED TIMING)
+if(screen == 10 && !hasCelebrated){
+    hasCelebrated = true;
+
+    requestAnimationFrame(() => {
+        triggerFinalCelebration();
+    });
 }
 
-function back() {
-    if (historyStack.length > 1) {
+    // warning screens
+    if(id.includes("screenpro") || 
+       id.includes("screennoskill") || 
+       id.includes("screennoconf") || 
+       id.includes("screeninvalid")){
+        warningAudio.currentTime = 0;
+        warningAudio.play();
+    }
+
+    // typing text
+    if(screenTexts[screen]){
+        typeText("text" + screen, screenTexts[screen]);
+    }
+
+    // history stack
+    if(historyStack[historyStack.length-1] !== id){
+        historyStack.push(id);
+    }
+
+    // optional confetti on screen 8
+    if(screen == 8){
+        setTimeout(launchConfetti, 200);
+    }
+}
+
+/* BACK */
+function back(){
+    warningAudio.pause();
+    warningAudio.currentTime = 0;
+
+    if(processTimer){
+        clearTimeout(processTimer);
+        processTimer = null;
+    }
+
+    if(historyStack.length > 1){
         historyStack.pop();
         let prev = historyStack[historyStack.length - 1];
 
-        document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
-        document.getElementById(prev).classList.remove("hidden");
+        document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+        document.getElementById(prev).classList.add("active");
     }
+    // reset celebration if leaving final flow
+if(!document.getElementById("screen10").classList.contains("active")){
+    hasCelebrated = false;
+}
 }
 
-function processing(nextScreen) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+/* VALIDATION */
+function validateInput(id, next){
+    let val = document.getElementById(id).value.trim();
 
-    let temp = document.createElement("div");
-    temp.className = "screen";
-    temp.style.display = "flex";
-    temp.innerHTML = "<h1>Processing...</h1>";
+    let hasLetters = /[a-zA-Z]/.test(val);
+    let notSpam = !/(.)\1{5,}/.test(val);
 
-    document.body.appendChild(temp);
-
-    setTimeout(() => {
-        temp.remove();
-        goTo(nextScreen);
-    }, 2000);
-}
-function validateInput(inputId, nextScreen) {
-    let value = document.getElementById(inputId).value.trim();
-
-    // ❌ invalid conditions
-    if (value.length < 10 || /^[a-zA-Z0-9]+$/.test(value)) {
+    if(val.length < 10 || !hasLetters || !notSpam){
         goTo("invalid");
-        return;
+    }else{
+        goTo(next);
+    }
+}
+
+/* PROCESSING */
+function startProcessing(){
+    processTimer = setTimeout(()=>{
+        goTo(8);
+    }, 1500);
+}
+
+/* ✅ FIXED CONFETTI (NO DEPENDENCY, ALWAYS WORKS) */
+function launchConfetti(){
+
+    console.log("CONFETTI CALLED");
+
+    for(let i = 0; i < 80; i++){
+
+        let c = document.createElement("div");
+
+        c.style.position = "fixed";
+        c.style.width = "8px";
+        c.style.height = "10px";
+        c.style.background = randomColor();
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.top = "-10px";
+        c.style.zIndex = "9999";
+        c.style.pointerEvents = "none";
+
+        document.body.appendChild(c);
+
+        let angle = Math.random() * Math.PI - Math.PI / 2;
+        let speed = Math.random() * 5 + 2;
+
+        let x = 0;
+        let y = 0;
+
+        let vx = Math.cos(angle) * speed;
+        let vy = Math.sin(angle) * speed;
+
+        let gravity = 0.2;
+
+        let anim = setInterval(()=>{
+
+            x += vx;
+            y += vy;
+            vy += gravity;
+
+            c.style.transform = `translate(${x}px, ${y}px) rotate(${x * 2}deg)`;
+
+            if(y > window.innerHeight + 100){
+                c.remove();
+                clearInterval(anim);
+            }
+
+        }, 16);
+    }
+}
+
+function randomColor(){
+    return ["#ff4d4d","#4da6ff","#ffd24d","#4dff88","#b84dff"][Math.floor(Math.random()*5)];
+}
+
+/* TYPING EFFECT */
+function typeText(elementId, text, speed = 40) {
+
+    let i = 0;
+    const el = document.getElementById(elementId);
+    if(!el) return;
+
+    el.innerHTML = "";
+    isTyping = true;
+
+    typingAudio.currentTime = 0;
+    typingAudio.play();
+
+    function typing() {
+        if (!isTyping) return;
+
+        if (i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            typingInterval = setTimeout(typing, speed);
+        } else {
+            typingAudio.pause();
+            isTyping = false;
+        }
     }
 
-    // ✅ valid → continue
-    goTo(nextScreen);
+    typing();
+}
+
+/* ✅ FINAL CELEBRATION (CLEAN + SYNCED) */
+function triggerFinalCelebration() {
+
+    console.log("FINAL CELEBRATION TRIGGERED");
+
+    // Confetti bursts (better effect)
+    let bursts = 0;
+
+    const interval = setInterval(() => {
+        launchConfetti();
+        bursts++;
+
+        if (bursts >= 4) clearInterval(interval);
+    }, 400);
+
+    // Sounds
+    const pop = document.getElementById("popSound");
+    const rocket = document.getElementById("rocketSound");
+
+    if(rocket){
+        rocket.currentTime = 0;
+        rocket.play().catch(()=>{});
+    }
+
+    setTimeout(()=>{
+        if(pop){
+            pop.currentTime = 0;
+            pop.play().catch(()=>{});
+        }
+    }, 600);
 }
